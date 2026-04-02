@@ -17,37 +17,338 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS with beautiful aesthetic dark theme
 st.markdown("""
 <style>
-    .stApp { background: linear-gradient(135deg, #0a1628 0%, #1a2744 100%); }
-    .main-header { color: #00d4ff; font-size: 2.5rem; font-weight: bold; text-align: center; }
-    .section-header { color: #00ff88; font-size: 1.5rem; font-weight: bold; padding: 1rem 0; }
-    .module-card { background: rgba(0,212,255,0.1); border-radius: 15px; padding: 1.5rem; margin: 0.75rem 0; border-left: 4px solid #00d4ff; }
-    .tool-card { background: rgba(255,165,0,0.1); border-radius: 10px; padding: 1rem; margin: 0.5rem 0; border-left: 3px solid #ffa500; }
-    .db-card { background: rgba(138,43,226,0.1); border-radius: 10px; padding: 0.75rem; margin: 0.3rem 0; border-left: 3px solid #8a2be2; }
-    .stage-card { background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,212,255,0.1)); border-radius: 15px; padding: 1.5rem; margin: 1rem 0; border: 1px solid #00ff88; }
-    .pipeline-step { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 1rem; margin: 0.5rem 0; }
-    .step-number { background: #00d4ff; color: #0a1628; font-weight: bold; padding: 0.3rem 0.8rem; border-radius: 50%; display: inline-block; }
-    .status-badge { background: #27ae60; color: white; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.75rem; }
-    .category-badge { background: #9b59b6; color: white; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.75rem; }
-    .reference-link { color: #00d4ff; text-decoration: none; padding: 0.2rem 0.5rem; }
-    .reference-link:hover { color: #00ff88; }
-    .big-metric { font-size: 2rem; font-weight: bold; color: #00d4ff; }
-    .metric-label { color: #888; font-size: 0.9rem; }
-    .divider { border-top: 2px solid #00d4ff; margin: 1rem 0; }
+    /* Beautiful dark theme with purple/cyan accents */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+        --bg-primary: #0f0f1a;
+        --bg-secondary: #1a1a2e;
+        --bg-card: #16213e;
+        --bg-card-hover: #1f2b4d;
+        --accent-1: #e94560;
+        --accent-2: #0f3460;
+        --accent-3: #00d9ff;
+        --accent-4: #a855f7;
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --border-color: #2d3748;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    
+    * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .stApp {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+    }
+    
+    /* Headers */
+    .main-header {
+        background: var(--gradient-1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        padding: 1.5rem 0;
+        letter-spacing: -0.02em;
+    }
+    
+    .section-header {
+        color: var(--accent-3);
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 1rem 0;
+        border-bottom: 2px solid var(--accent-3);
+        margin-bottom: 1rem;
+    }
+    
+    /* Cards */
+    .module-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin: 0.75rem 0;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+    
+    .module-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,217,255,0.15);
+        border-color: var(--accent-3);
+    }
+    
+    .tool-card {
+        background: linear-gradient(145deg, #1a1a2e, #252542);
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-left: 4px solid;
+        border-image: var(--gradient-3) 1;
+        transition: all 0.3s ease;
+    }
+    
+    .tool-card:hover {
+        background: linear-gradient(145deg, #252542, #2d2d4a);
+        transform: translateX(5px);
+    }
+    
+    .db-card {
+        background: var(--bg-secondary);
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin: 0.3rem 0;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+    }
+    
+    .db-card:hover {
+        background: var(--accent-2);
+        border-color: var(--accent-4);
+    }
+    
+    .stage-card {
+        background: linear-gradient(145deg, var(--bg-card), var(--accent-2));
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 1px solid var(--accent-4);
+        box-shadow: 0 10px 40px rgba(168,85,247,0.1);
+    }
+    
+    .pipeline-step {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        margin: 0.5rem 0;
+        border-left: 4px solid var(--accent-3);
+        transition: all 0.3s ease;
+    }
+    
+    .pipeline-step:hover {
+        background: var(--accent-2);
+        border-left-color: var(--accent-1);
+    }
+    
+    .step-number {
+        background: var(--gradient-1);
+        color: white;
+        font-weight: 700;
+        padding: 0.4rem 1rem;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 0.75rem;
+        box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+    }
+    
+    .status-badge {
+        background: var(--gradient-4);
+        color: #0f172a;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .category-badge {
+        background: var(--gradient-5);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .reference-link {
+        color: var(--accent-3);
+        text-decoration: none;
+        padding: 0.3rem 0.8rem;
+        border-radius: 8px;
+        background: rgba(0,217,255,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .reference-link:hover {
+        background: rgba(0,217,255,0.2);
+        color: white;
+    }
+    
+    .big-metric {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: var(--gradient-3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .metric-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+    
+    .divider {
+        border-top: 2px solid var(--accent-4);
+        margin: 1.5rem 0;
+    }
+    
+    /* Sidebar styling */
+    .stSidebar {
+        background: var(--bg-secondary) !important;
+        border-right: 1px solid var(--border-color);
+    }
+    
+    .stSidebar .stRadio > label {
+        color: var(--text-primary);
+        font-weight: 500;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: var(--gradient-1);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background: var(--bg-card);
+        border-radius: 10px;
+        color: var(--text-primary);
+    }
+    
+    /* Table styling */
+    .dataframe {
+        background: var(--bg-card) !important;
+        border-radius: 12px;
+    }
+    
+    /* Metrics */
+    div[data-testid="stMetric"] {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+    }
+    
+    /* Links */
+    a {
+        color: var(--accent-3);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    a:hover {
+        color: var(--accent-4);
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 1rem;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 0.5rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px;
+        color: var(--text-secondary);
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: var(--gradient-1);
+        color: white;
+    }
+    
+    /* Success/Info boxes */
+    .success-box {
+        background: linear-gradient(145deg, rgba(67,233,123,0.1), rgba(56,249,215,0.1));
+        border: 1px solid #43e97b;
+        border-radius: 12px;
+        padding: 1rem;
+    }
+    
+    .info-box {
+        background: linear-gradient(145deg, rgba(0,217,255,0.1), rgba(168,85,247,0.1));
+        border: 1px solid var(--accent-3);
+        border-radius: 12px;
+        padding: 1rem;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: var(--bg-primary);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: var(--accent-2);
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-3);
+    }
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-muted);
+        border-top: 1px solid var(--border-color);
+        margin-top: 2rem;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Header
 st.markdown('<h1 class="main-header">🧬 DRUG DESIGN & DEVELOPMENT PLATFORM</h1>', unsafe_allow_html=True)
-st.markdown('<p style="text-align:center; color:#888;">From Target Selection → Hit ID → Lead Optimization → Preclinical → Clinical Trials</p>', unsafe_allow_html=True)
+st.markdown("""
+<div style="text-align:center; padding: 0.5rem 0;">
+    <span style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.1rem;">
+        From Target Selection → Clinical Trials → Approval → Post-Marketing
+    </span>
+</div>
+""", unsafe_allow_html=True)
 st.markdown("---")
 
 # Import drug discovery engine
 from drug_discovery_engine import *
 
 # Sidebar - Pipeline Navigation
-st.sidebar.markdown("## 🎯 PIPELINE STAGES")
+st.sidebar.markdown("""
+<div style="text-align: center; padding: 1rem;">
+    <h2 style="background: linear-gradient(135deg, #e94560, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🎯 PIPELINE STAGES</h2>
+</div>
+""", unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
 pipeline_stages = [
@@ -65,17 +366,21 @@ pipeline_stages = [
 
 selected_stage = st.sidebar.radio("Select Stage:", pipeline_stages)
 
-# Quick links
+# Quick links in sidebar
 st.sidebar.markdown("---")
-st.sidebar.markdown("## 🔗 DATABASE LINKS")
 st.sidebar.markdown("""
-- [ChEMBL](https://www.ebi.ac.uk/chembl)
-- [PubChem](https://pubchem.ncbi.nlm.nih.gov)
-- [DrugBank](https://www.drugbank.ca)
-- [PDB](https://www.rcsb.org)
-- [AlphaFold](https://alphafold.ebi.ac.uk)
-- [ClinicalTrials.gov](https://clinicaltrials.gov)
-""")
+<div style="padding: 1rem; background: linear-gradient(145deg, #1a1a2e, #252542); border-radius: 12px; margin-top: 1rem;">
+    <h4 style="color: #00d9ff; margin-bottom: 0.75rem;">🔗 DATABASE LINKS</h4>
+    <div style="display: grid; gap: 0.5rem;">
+        <a href="https://www.ebi.ac.uk/chembl" target="_blank" style="color: #e94560;">📊 ChEMBL</a>
+        <a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" style="color: #a855f7;">🧪 PubChem</a>
+        <a href="https://www.drugbank.ca" target="_blank" style="color: #43e97b;">💊 DrugBank</a>
+        <a href="https://www.rcsb.org" target="_blank" style="color: #4facfe;">🧬 PDB</a>
+        <a href="https://alphafold.ebi.ac.uk" target="_blank" style="color: #fee140;">🔮 AlphaFold</a>
+        <a href="https://clinicaltrials.gov" target="_blank" style="color: #fa709a;">🏥 ClinicalTrials</a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # ============================================
 # STAGE 1: TARGET SELECTION
@@ -105,13 +410,14 @@ if selected_stage == "1️⃣ Target Selection":
         for db, url in TARGET_DATABASES.items():
             st.markdown(f"""
             <div class="db-card">
-                <a href="{url}" target="_blank">{db}</a>
+                <a href="{url}" target="_blank" style="color: #00d9ff;">{db}</a>
             </div>
             """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 🔬 Target Selection Criteria")
     st.markdown("""
+    <div class="info-box">
     | Criterion | Description |
     |------------|-------------|
     | **Druggability** | Protein class, binding site, expression |
@@ -119,7 +425,8 @@ if selected_stage == "1️⃣ Target Selection":
     | **Safety** | Tissue distribution, off-target potential |
     | **Assay feasibility** | Developability, screening capability |
     | **IP landscape** | Patent freedom to operate |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 🛠️ Computational Tools for Target Selection")
@@ -154,7 +461,7 @@ if selected_stage == "1️⃣ Target Selection":
         - **CTD** - Comparative toxicogenomics
         """)
         
-        st.markdown("#### 🧮 cheminformatics")
+        st.markdown("#### 🧪 Cheminformatics")
         st.markdown("""
         - **RDKit** - Molecular fingerprints, descriptors
         - **Open Babel** - Format conversion
@@ -319,6 +626,7 @@ elif selected_stage == "4️⃣ Lead Optimization":
     st.markdown("---")
     st.markdown("### 🧬 Retrosynthesis Tools")
     st.markdown("""
+    <div class="success-box">
     | Tool | Type | Accuracy | Availability |
     |------|------|----------|--------------|
     | **IBM RXN** | AI Cloud | ~85% | Commercial |
@@ -326,7 +634,8 @@ elif selected_stage == "4️⃣ Lead Optimization":
     | **ChemAI** | AI Cloud | ~75% | Commercial |
     | **NeuMMA** | AI Cloud | ~78% | Commercial |
     | **RDChiral** | Rule-based | ~60% | Free/Open |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # STAGE 5: PRECLINICAL DEVELOPMENT
@@ -366,6 +675,7 @@ elif selected_stage == "5️⃣ Preclinical Dev":
     st.markdown("---")
     st.markdown("### 📈 IND-Enabling Studies Timeline")
     st.markdown("""
+    <div class="info-box">
     | Study | Duration | Purpose |
     |-------|----------|---------|
     | In vitro pharmacology | 3-6 months | Mechanism, selectivity |
@@ -375,7 +685,8 @@ elif selected_stage == "5️⃣ Preclinical Dev":
     | 28-day toxicology | 3-4 months | Dose-range finding |
     | 90-day toxicology | 4-6 months | GLP toxicology |
     | CMC | 6-12 months | Formulation, manufacturing |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # PHASE I CLINICAL TRIALS
@@ -388,6 +699,7 @@ elif selected_stage == "6️⃣ Phase I Trials":
     
     with p1_col1:
         st.markdown("""
+        <div class="stage-card">
         ### 📋 Phase I Overview
         **Purpose:** Safety, tolerability, PK/PD
         
@@ -400,10 +712,12 @@ elif selected_stage == "6️⃣ Phase I Trials":
         - Maximum tolerated dose (MTD)
         - Adverse events (AEs)
         - Serious adverse events (SAEs)
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     with p1_col2:
         st.markdown("""
+        <div class="stage-card">
         ### 🧪 Phase I Study Designs
         
         **Single ascending dose (SAD)**
@@ -417,18 +731,21 @@ elif selected_stage == "6️⃣ Phase I Trials":
         **Food effect**
         - Fed vs fasted
         - Drug-drug interaction
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 📊 First-in-Human Dose Calculation")
     st.markdown("""
+    <div class="success-box">
     | Method | Description |
     |--------|-------------|
     | **Allometric scaling** | Scale from animal PK |
     | **Pharmacodynamic** | Based on animal efficacy |
     | **Safety** | 1/10 to 1/100 of NOAEL |
     | **MABEL** | Minimal anticipated biological effect level |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # PHASE II CLINICAL TRIALS
@@ -441,6 +758,7 @@ elif selected_stage == "7️⃣ Phase II Trials":
     
     with p2_col1:
         st.markdown("""
+        <div class="stage-card">
         ### 📋 Phase II Overview
         **Purpose:** Efficacy, dose-finding
         
@@ -453,10 +771,12 @@ elif selected_stage == "7️⃣ Phase II Trials":
         - Biomarker modulation
         - Optimal dose selection
         - Proof of concept (POC)
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     with p2_col2:
         st.markdown("""
+        <div class="stage-card">
         ### 🎯 Phase II Study Designs
         
         **Randomized controlled trial (RCT)**
@@ -470,11 +790,13 @@ elif selected_stage == "7️⃣ Phase II Trials":
         **Adaptive designs**
         - Seamless Phase II/III
         - Simon 2-stage
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 📈 Sample Size Calculation")
     st.markdown("""
+    <div class="info-box">
     | Parameter | Typical Value |
     |-----------|--------------|
     | Alpha (Type I error) | 0.05 (two-sided) |
@@ -482,7 +804,8 @@ elif selected_stage == "7️⃣ Phase II Trials":
     | Expected response | 20-40% |
     | Minimum clinically meaningful | 10-15% |
     | Dropout rate | 15-20% |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # PHASE III CLINICAL TRIALS
@@ -495,6 +818,7 @@ elif selected_stage == "8️⃣ Phase III Trials":
     
     with p3_col1:
         st.markdown("""
+        <div class="stage-card">
         ### 📋 Phase III Overview
         **Purpose:** Confirm efficacy, safety
         
@@ -507,10 +831,12 @@ elif selected_stage == "8️⃣ Phase III Trials":
         - Overall survival (OS)
         - Progression-free survival (PFS)
         - Quality of life
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     with p3_col2:
         st.markdown("""
+        <div class="stage-card">
         ### 🏆 Pivotal Trial Design
         
         **Required for NDA/BLA:**
@@ -525,11 +851,13 @@ elif selected_stage == "8️⃣ Phase III Trials":
         **Real-world evidence**
         - Post-marketing commitments
         - Registry studies
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 📊 Regulatory Submission Checklist")
     st.markdown("""
+    <div class="success-box">
     | Component | Description |
     |----------|-------------|
     | **CMC** | Manufacturing, quality control |
@@ -538,7 +866,8 @@ elif selected_stage == "8️⃣ Phase III Trials":
     | **Statistical** | Efficacy, safety analysis |
     | **Labeling** | Prescribing information |
     | **Risk management** | REMS, EU-RMP |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # APPROVAL & LAUNCH
@@ -551,6 +880,7 @@ elif selected_stage == "9️⃣ Approval & Launch":
     
     with reg_col1:
         st.markdown("""
+        <div class="stage-card">
         ### 🏛️ Regulatory Agencies
         
         **Major:**
@@ -563,10 +893,12 @@ elif selected_stage == "9️⃣ Approval & Launch":
         - **TGA** (Australia)
         - **CDSCO** (India)
         - **NMPA** (China)
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     with reg_col2:
         st.markdown("""
+        <div class="stage-card">
         ### 📋 Submission Components
         
         **NDA/BLA:**
@@ -577,11 +909,13 @@ elif selected_stage == "9️⃣ Approval & Launch":
         - Clinical efficacy
         - Clinical safety
         - Post-marketing risk management
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 🚀 Launch Preparation")
     st.markdown("""
+    <div class="info-box">
     | Activity | Timeline |
     |----------|----------|
     | Market research | 6-12 months pre-launch |
@@ -590,7 +924,8 @@ elif selected_stage == "9️⃣ Approval & Launch":
     | Distribution logistics | 3 months pre-launch |
     | Reimbursement/Payer strategy | Ongoing |
     | Phase IV commitments | Post-launch |
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # ============================================
 # PHASE IV MONITORING
@@ -603,6 +938,7 @@ elif selected_stage == "🔄 Phase IV Monitoring":
     
     with pv_col1:
         st.markdown("""
+        <div class="stage-card">
         ### 👁️ Pharmacovigilance
         
         **Spontaneous reporting:**
@@ -619,10 +955,12 @@ elif selected_stage == "🔄 Phase IV Monitoring":
         - REMS (Risk Evaluation Mitigation Strategy)
         - EU-RMP
         - Post-authorization safety study (PASS)
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     with pv_col2:
         st.markdown("""
+        <div class="stage-card">
         ### 📈 Real-World Evidence
         
         **Data sources:**
@@ -641,11 +979,13 @@ elif selected_stage == "🔄 Phase IV Monitoring":
         - Quality of life
         - Economic burden
         - Treatment patterns
-        """)
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("### 🔬 New Indications")
     st.markdown("""
+    <div class="success-box">
     **Post-marketing research can lead to:**
     - New disease indications
     - Pediatric populations
@@ -653,14 +993,15 @@ elif selected_stage == "🔄 Phase IV Monitoring":
     - Line extension (new formulations)
     - Adjuvant/neoadjuvant use
     - Breakthrough therapy designation
-    """)
+    </div>
+    """, unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
 st.markdown("""
-<div style="text-align:center; color:#666; padding:1rem;">
-    <p>🧬 <strong>Comprehensive Drug Design & Development Platform</strong></p>
-    <p style="font-size:0.8rem;">From Target Selection → Clinical Trials → Approval → Post-Marketing</p>
-    <p style="font-size:0.75rem;">For GM sir | Data from ChEMBL, PubChem, DrugBank, FDA, EMA, ClinicalTrials.gov</p>
+<div class="footer">
+    <p style="font-size: 1.2rem;">🧬 <strong>Comprehensive Drug Design & Development Platform</strong></p>
+    <p style="font-size: 0.9rem;">From Target Selection → Clinical Trials → Approval → Post-Marketing</p>
+    <p style="font-size: 0.75rem; color: #64748b;">For GM sir | Data from ChEMBL, PubChem, DrugBank, FDA, EMA, ClinicalTrials.gov</p>
 </div>
 """, unsafe_allow_html=True)
