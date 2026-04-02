@@ -94,7 +94,7 @@ NATURAL_PRODUCT_SOURCES = [
 HTS_ANALYSIS = {
     "Primary screening": "Hit rate calculation, Z-factor, S/B ratio",
     "Counter screening": "Pan-assay interference compounds (PAINS)",
-    "Dose-response": "IC50, EC50,hill slope determination",
+    "Dose-response": "IC50, EC50, hill slope determination",
     "Hit confirmation": "qHTS, orthogonal assays",
 }
 
@@ -174,18 +174,18 @@ PROPERTY_TARGETS = {
     "Lipinski's Rule of 5": {
         "MW": "< 500 Da",
         "LogP": "< 5",
-        "HBD": "≤ 5",
-        "HBA": "≤ 10",
+        "HBD": "<= 5",
+        "HBA": "<= 10",
     },
     "Beyond Rule of 5": {
         "P-gp substrate": "For brain penetration",
         "High solubility": "> 100 μg/mL",
-        "High permeability": "> 5×10^-6 cm/s",
+        "High permeability": "> 5x10^-6 cm/s",
     },
     "CNS drug-like": {
         "MW": "< 400 Da",
         "LogP": "1-4",
-        "TPSA": "< 90 Å²",
+        "TPSA": "< 90 A2",
         "Rotatable bonds": "< 8",
         "PPB": "< 95%",
     },
@@ -197,7 +197,7 @@ PROPERTY_TARGETS = {
 
 IN_VITRO_ASSAYS = {
     "Binding assays": ["Radioligand binding", "FP binding", "SPA binding", "TR-FRET"],
-    "Functional assays": ["GTPγS", "cAMP accumulation", "Calcium flux", "Reporter gene", "PathHunter"},
+    "Functional assays": ["GTPgammaS", "cAMP accumulation", "Calcium flux", "Reporter gene", "PathHunter"],
     "Enzyme assays": ["Continuous", "Stop reagent", "ADP detection", "Substrate depletion"],
     "Cell-based": ["Reporter assay", "Cell viability", "Flow cytometry", "Imaging", "Electrophysiology"],
 }
@@ -239,7 +239,7 @@ PKPD_MODELING = {
     "PK parameters": ["AUC", "Cmax", "Tmax", "t1/2", "CL", "VD", "F%", "PPB"],
     "PD markers": ["Biomarker levels", "Receptor occupancy", "Pharmacodynamic effect"],
     "Allometric scaling": ["Monkey-Human", "Dog-Human", "Rat-Human"],
-    "IVIVC": ["Correlation development", " waiver"],
+    "IVIVC": ["Correlation development", "waiver"],
 }
 
 # ==========================================
@@ -256,7 +256,7 @@ CLINICAL_PHASES = {
     "Phase II": {
         "Purpose": "Efficacy, dose-finding",
         "Population": "Patients (100-500)",
-        "Endpoints": ["Clinical response", " Biomarker modulation", "Optimal dose"],
+        "Endpoints": ["Clinical response", "Biomarker modulation", "Optimal dose"],
         "Duration": "12-24 months",
     },
     "Phase III": {
@@ -316,7 +316,7 @@ MOLECULAR_DYNAMICS = {
 QSAR_TOOLS = [
     "MOE",
     "Discovery Studio",
-    "Schrödinger Canvas",
+    "Schrodinger Canvas",
     "KNIME",
     "RDKit",
     "PyMOL",
@@ -367,7 +367,7 @@ CHEMINFORMATICS_TOOLS = {
     "PyMOL": "Molecular visualization",
     "Chimera": "Molecular visualization, analysis",
     "ChemDraw": "Structure drawing, naming",
-    "Schrödinger": "Docking, MD, QSAR, LiFE",
+    "Schrodinger": "Docking, MD, QSAR, LiFE",
     "MOE": "QSAR, pharmacophore, docking",
     "Knime": "Workflow automation",
 }
@@ -460,35 +460,34 @@ DRUG_DISCOVERY_PIPELINE = [
 ]
 
 print("""
-╔══════════════════════════════════════════════════════════════════════╗
-║                                                                      ║
-║          COMPREHENSIVE DRUG DESIGN & DEVELOPMENT PLATFORM            ║
-║                    From Target to Clinic                            ║
-║                                                                      ║
-║  STAGES COVERED:                                                    ║
-║  1. Target Identification & Validation                              ║
-║  2. Hit Identification (Virtual/Physical Screening)                 ║
-║  3. Lead Optimization (SAR, ADMET, Retrosynthesis)                 ║
-║  4. Preclinical Development (In vitro/In vivo)                     ║
-║  5. Clinical Development (Phase I-IV)                              ║
-║  6. Regulatory Approval                                             ║
-║  7. Post-marketing Surveillance                                     ║
-║                                                                      ║
-║  TOOLS INCLUDED:                                                    ║
-║  - Molecular docking (AutoDock, Glide, GOLD)                        ║
-║  - Molecular dynamics (GROMACS, AMBER, NAMD)                        ║
-║  - ML/AI for QSAR and drug design                                  ║
-║  - Bioisostere replacements (NeBULA integration)                     ║
-║  - Retrosynthesis (IBM RXN, ASKCos)                                 ║
-║  - ADMET prediction                                                 ║
-║  - PK/PD modeling                                                  ║
-║                                                                      ║
-║  DATABASE LINKS:                                                    ║
-║  - ChEMBL, PubChem, DrugBank, BindingDB                             ║
-║  - UniProt, PDB, AlphaFold                                          ║
-║  - ClinicalTrials.gov                                              ║
-║                                                                      ║
-╚══════════════════════════════════════════════════════════════════════╝
+============================================================
+    COMPREHENSIVE DRUG DESIGN & DEVELOPMENT PLATFORM
+                    From Target to Clinic
+============================================================
+
+  STAGES COVERED:
+  1. Target Identification & Validation
+  2. Hit Identification (Virtual/Physical Screening)
+  3. Lead Optimization (SAR, ADMET, Retrosynthesis)
+  4. Preclinical Development (In vitro/In vivo)
+  5. Clinical Development (Phase I-IV)
+  6. Regulatory Approval
+  7. Post-marketing Surveillance
+
+  TOOLS INCLUDED:
+  - Molecular docking (AutoDock, Glide, GOLD)
+  - Molecular dynamics (GROMACS, AMBER, NAMD)
+  - ML/AI for QSAR and drug design
+  - Bioisostere replacements
+  - Retrosynthesis (IBM RXN, ASKCos)
+  - ADMET prediction
+
+  DATABASE LINKS:
+  - ChEMBL, PubChem, DrugBank, BindingDB
+  - UniProt, PDB, AlphaFold
+  - ClinicalTrials.gov
+
+============================================================
 """)
 
 # Export for use in other modules
